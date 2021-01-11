@@ -1,17 +1,21 @@
 import glob, os
 
+# Initialize list
 customWords = []
 
-os.chdir("C:\\Github\\skribbl")
+# Read all .txt files
+dir_path = os.path.dirname(os.path.realpath(__file__))
+os.chdir(dir_path)
 for file in glob.glob("*.txt"):
-    with open(file, 'r') as f:
-        f_contents = f.read()
-        customWordTemp = f_contents.split(',')
-        customWords.extend(customWordTemp)
+    if(file != 'output.txt'):
+        with open(file, 'r') as f:
+            f_contents = f.read()
+            customWordTemp = f_contents.split(',')
+            customWords.extend(customWordTemp)
 
 
-#print(customWords)
-
-strCustomWords = ', '.join(map(str, customWords))
+# Write output.txt with all responses combined
+filter(None, customWords)                               # remove blank elements
+strCustomWords = ', '.join(map(str, customWords))       # list to str
 with open('output.txt', 'w') as f:
     f.write(strCustomWords)
